@@ -1,4 +1,7 @@
 {
   "name": "EarnEasy",
-  "displayName": "EarnEasy"
+  "displayName": "EarnEasy",
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-3087788483910829~4393397967"
+  }
 }
