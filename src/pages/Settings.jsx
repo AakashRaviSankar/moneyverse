@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -11,6 +11,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {useRewardedAd} from '../hooks/useRewarded';
 import AdBanner from '../components/AdBanner';
 import {BannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
+import StartAppAd from '../utils/StartAppAds';
+import StartAppBanner from '../utils/StartAppBanner';
 
 const SettingsScreen = ({navigation}) => {
   // Logout function
@@ -30,13 +32,7 @@ const SettingsScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <BannerAd
-        unitId={'ca-app-pub-3087788483910829/8698196794'}
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
-        }}
-      />
+      <StartAppBanner style={{width: '100%', height: 70}} />
 
       <Text style={styles.title}>Settings</Text>
 
@@ -62,13 +58,8 @@ const SettingsScreen = ({navigation}) => {
         onPress={handleLogout}
         color="red"
       />
-      <BannerAd
-        unitId={'ca-app-pub-3087788483910829/2244469086'}
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
-        }}
-      />
+
+      <StartAppBanner style={{width: '100%', height: 70}} />
     </SafeAreaView>
   );
 };

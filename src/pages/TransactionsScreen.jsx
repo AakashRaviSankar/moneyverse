@@ -14,6 +14,8 @@ import config from '../config';
 import {getUserData} from '../utils/helper';
 
 import {BannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
+import StartAppAd from '../utils/StartAppAds';
+import StartAppBanner from '../utils/StartAppBanner';
 
 // Function to format the date
 const formatDate = date => {
@@ -67,13 +69,15 @@ const WithdrawTransactionsPage = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <BannerAd
-        unitId={'ca-app-pub-3087788483910829/7576686812'}
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
-        }}
-      />
+      <View
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginLeft: 20,
+        }}>
+        <StartAppBanner style={{width: '100%', height: 70}} />
+      </View>
       <Text style={styles.header}>Transaction History</Text>
       {loading ? (
         <ActivityIndicator size="large" color="#fff" style={styles.loader} />
@@ -101,15 +105,17 @@ const WithdrawTransactionsPage = () => {
           }}
         />
       ) : (
-        <Text style={styles.details}>No Transaction Made Yet</Text>
+        <Text style={styles.details}>No Transaction Made Yet.</Text>
       )}
-      <BannerAd
-        unitId={'ca-app-pub-3087788483910829/1639927874'}
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
-        }}
-      />
+      <View
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginLeft: 20,
+        }}>
+        <StartAppBanner style={{width: '100%', height: 70}} />
+      </View>
     </SafeAreaView>
   );
 };

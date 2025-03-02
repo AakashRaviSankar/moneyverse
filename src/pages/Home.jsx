@@ -1,12 +1,13 @@
 import React from 'react';
-import {SafeAreaView, View} from 'react-native';
+import {requireNativeComponent, SafeAreaView, View} from 'react-native';
 import {useEffect} from 'react';
 import {BackHandler, Alert} from 'react-native';
-import AdBanner from '../components/AdBanner';
+
 import Wallet from '../components/Wallet';
 import GameNavigation from '../components/GameNavigation';
-import {BannerAd, BannerAdSize, TestIds} from 'react-native-google-mobile-ads';
+import StartAppBanner from '../utils/StartAppBanner';
 
+// const StartAppBanner = requireNativeComponent('StartAppBanner');
 const Home = () => {
   useEffect(() => {
     const backAction = () => {
@@ -24,26 +25,29 @@ const Home = () => {
 
     return () => backHandler.remove(); // Cleanup event listener
   }, []);
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#3C3D37'}}>
-      <BannerAd
-        unitId={'ca-app-pub-3087788483910829/2052757772'}
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
-        }}
-      />
+      <View
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginLeft: 20,
+        }}>
+        <StartAppBanner style={{width: '100%', height: 70}} />
+      </View>
       <Wallet />
       <GameNavigation />
-      <BannerAd
-        unitId={
-          __DEV__ ? TestIds.BANNER : 'ca-app-pub-3087788483910829/6365640942'
-        }
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        requestOptions={{
-          networkExtras: {collapsible: 'bottom'},
-        }}
-      />
+      <View
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginLeft: 20,
+        }}>
+        <StartAppBanner style={{width: '100%', height: 70}} />
+      </View>
     </SafeAreaView>
   );
 };

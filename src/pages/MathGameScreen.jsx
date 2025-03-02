@@ -19,13 +19,15 @@ import {GameContext} from '../context/GameContext';
 import {lockGame} from '../utils/gameRules';
 import {useNavigation} from '@react-navigation/native';
 import {useRewardedAd} from '../hooks/useRewarded';
-import AdBanner from '../components/AdBanner';
+
 import axios from 'axios';
 import config from '../config';
 import {getUserData} from '../utils/helper';
 import {fetchBalanceService} from '../services/walletService';
 import useHandleBackButton from '../hooks/useBackNavigation';
 import {BannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
+import StartAppAd from '../utils/StartAppAds';
+import StartAppBanner from '../utils/StartAppBanner';
 
 const MathGamePage = () => {
   const navigation = useNavigation();
@@ -145,8 +147,6 @@ const MathGamePage = () => {
     setIsAnswered(true);
 
     if (answer === questions[questionIndex].correct) {
-      await updateTimer(questionIndex + 1);
-      await updateWallet();
       setTimeout(() => {
         nextQuestion();
       }, 800);
@@ -156,16 +156,24 @@ const MathGamePage = () => {
     }
   };
 
-  const nextQuestion = () => {
+  const nextQuestion = async () => {
     if (questionIndex < 9) {
-      showAd();
+      // showAd();
+
+      StartAppAd.showRewarded();
+
+      await updateTimer(questionIndex + 1);
+      await updateWallet();
       setQuestionIndex(questionIndex + 1);
       setIsAnswered(false);
       setSelectedAnswer(null);
       fadeAnim.setValue(0);
       fadeIn();
     } else {
-      showAd();
+      StartAppAd.showRewarded();
+
+      await updateTimer(questionIndex + 1);
+      await updateWallet();
       lockGame('mathLocked');
       setMathLocked(true);
       navigation.navigate('Home');
@@ -174,13 +182,7 @@ const MathGamePage = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <BannerAd
-        unitId={'ca-app-pub-3087788483910829/8963884128'}
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
-        }}
-      />
+      <StartAppBanner style={{width: '100%', height: 70}} />
 
       {loading ? (
         <ActivityIndicator size="large" color="#fff" style={styles.loader} />
@@ -222,13 +224,7 @@ const MathGamePage = () => {
         </Card>
       )}
 
-      <BannerAd
-        unitId={'ca-app-pub-3087788483910829/8205336227'}
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
-        }}
-      />
+      <StartAppBanner style={{width: '100%', height: 70}} />
     </SafeAreaView>
   );
 };
@@ -264,10 +260,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#000',
     textAlign: 'center',
-    marginVertical: 20,
+    marginVertical: 10,
   },
   buttonContainer: {
-    marginTop: 20,
+    marginTop: 10,
     flexDirection: 'column',
     alignItems: 'center',
   },

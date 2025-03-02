@@ -87,7 +87,15 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
+
+    repositories {
+        mavenCentral()
+    }
+
+
+
     signingConfigs {
         debug {
             storeFile file('keystore-test.jks')
@@ -115,7 +123,7 @@ dependencies {
     implementation("com.facebook.react:react-android")
 
     // Google AdMob SDK (Required for AdMob)
-    implementation ('com.google.android.gms:play-services-ads:22.5.0')
+
 
     implementation ('com.startapp:inapp-sdk:4.10.+')
   

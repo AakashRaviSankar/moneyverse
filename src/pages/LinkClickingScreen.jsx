@@ -9,14 +9,14 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import AdBanner from '../components/AdBanner';
+
 import axios from 'axios';
 import config from '../config';
 import {getUserData} from '../utils/helper';
 
 import {useRewardedAd} from '../hooks/useRewarded';
 import useHandleBackButton from '../hooks/useBackNavigation';
-import {BannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
+import StartAppBanner from '../utils/StartAppBanner';
 
 const LinkClickingScreen = () => {
   useHandleBackButton('Home');
@@ -57,13 +57,8 @@ const LinkClickingScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <BannerAd
-        unitId={'ca-app-pub-3087788483910829/6596741086'}
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
-        }}
-      />
+      <StartAppBanner style={{width: '100%', height: 70}} />
+
       <Text style={styles.title}>Select a Story</Text>
       {loading ? (
         <ActivityIndicator size="large" color="#fff" style={styles.loader} />
@@ -88,13 +83,8 @@ const LinkClickingScreen = () => {
           }}
         />
       )}
-      <BannerAd
-        unitId={'ca-app-pub-3087788483910829/1468537485'}
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
-        }}
-      />
+
+      <StartAppBanner style={{width: '100%', height: 70}} />
     </SafeAreaView>
   );
 };

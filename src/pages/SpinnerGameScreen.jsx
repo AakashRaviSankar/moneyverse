@@ -20,6 +20,8 @@ import {fetchBalanceService} from '../services/walletService';
 import useHandleBackButton from '../hooks/useBackNavigation';
 import {useRewardedAd} from '../hooks/useRewarded';
 import {BannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
+import StartAppAd from '../utils/StartAppAds';
+import StartAppBanner from '../utils/StartAppBanner';
 
 const FortuneSpinner = () => {
   useHandleBackButton('Home');
@@ -59,8 +61,6 @@ const FortuneSpinner = () => {
     }
   }, [numOfSpinsLeft, navigation]);
 
-  const {showAd} = useRewardedAd();
-
   const updateTimer = async newSpinsLeft => {
     const userData = await getUserData();
     try {
@@ -90,7 +90,6 @@ const FortuneSpinner = () => {
 
   const spinWheel = async () => {
     setDisabler(true);
-    showAd();
 
     if (numOfSpinsLeft === 0) {
       return Alert.alert('No Spins Left', 'You have reached the limit.');
@@ -118,9 +117,11 @@ const FortuneSpinner = () => {
 
       const newSpinsLeft = numOfSpinsLeft - 1;
       setNumOfSpinsLeft(newSpinsLeft);
+      StartAppAd.showRewarded();
 
       await updateTimer(newSpinsLeft);
       await updateWallet(reward);
+
       setDisabler(false);
 
       if (newSpinsLeft === 0) {
@@ -136,13 +137,8 @@ const FortuneSpinner = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <BannerAd
-        unitId={'ca-app-pub-3087788483910829/4860987587'}
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
-        }}
-      />
+      <StartAppBanner style={{width: '100%', height: 70}} />
+
       {loader ? (
         <ActivityIndicator style={styles.spinCount} color={'white'} />
       ) : (
@@ -188,13 +184,7 @@ const FortuneSpinner = () => {
         </>
       )}
 
-      <BannerAd
-        unitId={'ca-app-pub-3087788483910829/7768258508'}
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
-        }}
-      />
+      <StartAppBanner style={{width: '100%', height: 70}} />
     </SafeAreaView>
   );
 };

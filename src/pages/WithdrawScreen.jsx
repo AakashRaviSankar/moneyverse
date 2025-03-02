@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, StyleSheet, Alert, SafeAreaView} from 'react-native';
 import {
   TextInput,
@@ -16,6 +16,8 @@ import {fetchBalanceService} from '../services/walletService';
 import {GameContext} from '../context/GameContext';
 import {useRewardedAd} from '../hooks/useRewarded';
 import {BannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
+import StartAppAd from '../utils/StartAppAds';
+import StartAppBanner from '../utils/StartAppBanner';
 
 const WithdrawPage = () => {
   const [upiId, setUpiId] = useState('');
@@ -82,13 +84,15 @@ const WithdrawPage = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <BannerAd
-        unitId={'ca-app-pub-3087788483910829/2847104312'}
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
-        }}
-      />
+      <View
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginLeft: 20,
+        }}>
+        <StartAppBanner style={{width: '100%', height: 70}} />
+      </View>
       <Wallet />
 
       <Card style={styles.card}>
@@ -153,14 +157,15 @@ const WithdrawPage = () => {
           )}
         </Card.Content>
       </Card>
-
-      <BannerAd
-        unitId={'ca-app-pub-3087788483910829/3547905918'}
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
-        }}
-      />
+      <View
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginLeft: 20,
+        }}>
+        <StartAppBanner style={{width: '100%', height: 70}} />
+      </View>
     </SafeAreaView>
   );
 };

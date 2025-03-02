@@ -17,6 +17,8 @@ import config from '../config';
 import {fetchBalanceService} from '../services/walletService';
 import {useRewardedAd} from '../hooks/useRewarded';
 import {ActivityIndicator} from 'react-native-paper';
+import StartAppAd from '../utils/StartAppAds';
+import StartAppBanner from '../utils/StartAppBanner';
 
 const stories = [
   {
@@ -189,10 +191,10 @@ const StoryScreen = () => {
     setButtonEnabled(false); // Disable button during processing
 
     try {
-      showAd();
       let updatedLinks = [...links];
       updatedLinks[index] = true;
       setLinks(updatedLinks);
+      StartAppAd.showRewarded();
 
       await updateTimer(index);
       await updateWallet(0.2);
@@ -210,6 +212,15 @@ const StoryScreen = () => {
 
   return (
     <View style={styles.container}>
+      <View
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginLeft: 20,
+        }}>
+        <StartAppBanner style={{width: '100%', height: 70}} />
+      </View>
       <Text style={styles.timerText}>
         {buttonEnabled
           ? 'You can go back now, scroll down to add money'
@@ -222,7 +233,16 @@ const StoryScreen = () => {
         {story.sections.map((section, i) => (
           <View key={i}>
             <Text style={styles.storyText}>{section}</Text>
-            {i < story.sections.length - 1 && <AdBanner />}
+            {i < story.sections.length - 1}
+            <View
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginLeft: 20,
+              }}>
+              <StartAppBanner style={{width: '100%', height: 70}} />
+            </View>
           </View>
         ))}
         <Pressable
@@ -241,6 +261,15 @@ const StoryScreen = () => {
           )}
         </Pressable>
       </ScrollView>
+      <View
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginLeft: 20,
+        }}>
+        <StartAppBanner style={{width: '100%', height: 70}} />
+      </View>
     </View>
   );
 };
