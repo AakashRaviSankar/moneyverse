@@ -1,8 +1,8 @@
 import React from 'react';
-import {SafeAreaView, View} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import {useEffect} from 'react';
 import {BackHandler, Alert} from 'react-native';
-import AdBanner from '../components/AdBanner';
+
 import Wallet from '../components/Wallet';
 import GameNavigation from '../components/GameNavigation';
 import {BannerAd, BannerAdSize, TestIds} from 'react-native-google-mobile-ads';

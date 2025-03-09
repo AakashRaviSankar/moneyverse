@@ -1,8 +1,17 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
+import {View, Text, ActivityIndicator} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import MobileAds from 'react-native-google-mobile-ads';
+
+// Context Providers
 import {AuthProvider} from './src/context/AuthContext';
 import {GameProvider} from './src/context/GameContext';
+
+// Screens
 import Home from './src/pages/Home';
 import LoginScreen from './src/pages/LoginScreen';
 import RegisterScreen from './src/pages/RegisterScreen';
@@ -11,11 +20,10 @@ import SpinnerGameScreen from './src/pages/SpinnerGameScreen';
 import LinkClickingScreen from './src/pages/LinkClickingScreen';
 import WithdrawScreen from './src/pages/WithdrawScreen';
 import TransactionsScreen from './src/pages/TransactionsScreen';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import SettingsScreen from './src/pages/Settings';
 import StoryScreen from './src/pages/StoryScreen';
-import MobileAds from 'react-native-google-mobile-ads';
+import PrivacyPolicy from './src/pages/PrivacyPolicy';
+import GiftCardTransaction from './src/pages/GiftCardTransaction';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -26,12 +34,7 @@ const MainTabNavigator = () => {
     <Tab.Navigator
       screenOptions={({route}) => ({
         tabBarIcon: ({color, size}) => {
-          let iconName;
-          if (route.name === 'Home') {
-            iconName = 'home';
-          } else if (route.name === 'Settings') {
-            iconName = 'settings';
-          }
+          let iconName = route.name === 'Home' ? 'home' : 'settings';
           return <Icon name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: '#ff7e5f',
@@ -58,23 +61,54 @@ const MainTabNavigator = () => {
   );
 };
 
-// ✅ Main App Stack
+// ✅ Main App Component
 const App = () => {
+  const [consentGiven, setConsentGiven] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Initialize AdMob
   useEffect(() => {
     MobileAds()
       .initialize()
-      .then(() => {
-        console.log('AdMob initialized');
-      })
-      .catch(error => {
-        console.error('AdMob init error:', error);
-      });
+      .then(() => console.log('AdMob initialized'))
+      .catch(error => console.error('AdMob init error:', error));
   }, []);
+
+  // Check user consent from AsyncStorage
+  useEffect(() => {
+    const checkConsent = async () => {
+      try {
+        const storedConsent = await AsyncStorage.getItem('userConsent');
+        setConsentGiven(storedConsent === 'true');
+      } catch (error) {
+        console.error('Error fetching consent:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    checkConsent();
+  }, []);
+
+  // Show loading screen while checking consent
+  if (isLoading) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <ActivityIndicator /> <Text>Loading...</Text>
+      </View>
+    );
+  }
+
   return (
     <AuthProvider>
       <GameProvider>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Login">
+          <Stack.Navigator
+            initialRouteName={consentGiven ? 'Login' : 'Privacy'}>
+            <Stack.Screen
+              name="Privacy"
+              component={PrivacyPolicy}
+              options={{headerShown: false}}
+            />
             <Stack.Screen
               name="Login"
               component={LoginScreen}
@@ -87,8 +121,8 @@ const App = () => {
             />
             <Stack.Screen
               name="Home"
-              component={MainTabNavigator} // Using Tabs inside Stack
-              options={{headerShown: false}} // Hide header for bottom navigation
+              component={MainTabNavigator}
+              options={{headerShown: false}}
             />
             <Stack.Screen
               name="MathGame"
@@ -134,6 +168,14 @@ const App = () => {
             <Stack.Screen
               name="Transactions"
               component={TransactionsScreen}
+              options={{
+                headerStyle: {backgroundColor: '#1A1A1D'},
+                headerTintColor: 'white',
+              }}
+            />
+            <Stack.Screen
+              name="Gift"
+              component={GiftCardTransaction}
               options={{
                 headerStyle: {backgroundColor: '#1A1A1D'},
                 headerTintColor: 'white',

@@ -85,8 +85,8 @@ android {
         applicationId "com.earneasy"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.1.1"
     }
     signingConfigs {
         debug {
@@ -117,7 +117,6 @@ dependencies {
     // Google AdMob SDK (Required for AdMob)
     implementation ('com.google.android.gms:play-services-ads:22.5.0')
 
-    implementation ('com.startapp:inapp-sdk:4.10.+')
   
 
     if (hermesEnabled.toBoolean()) {

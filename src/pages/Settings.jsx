@@ -40,22 +40,30 @@ const SettingsScreen = ({navigation}) => {
 
       <Text style={styles.title}>Settings</Text>
 
-      <SettingButton
+      {/* <SettingButton
         icon="money"
         text="Withdraw Money"
         onPress={() => {
           showAd();
           navigation.navigate('Withdraw');
         }}
-      />
+      /> */}
       <SettingButton
+        icon="money"
+        text="Gift Card"
+        onPress={() => {
+          showAd();
+          navigation.navigate('Gift');
+        }}
+      />
+      {/* <SettingButton
         icon="history"
         text="Transaction History"
         onPress={() => {
           showAd();
           navigation.navigate('Transactions');
         }}
-      />
+      /> */}
       <SettingButton
         icon="sign-out"
         text="Logout"

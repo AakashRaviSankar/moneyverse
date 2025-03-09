@@ -1,5 +1,5 @@
 const config = {
-  Base: 'https://neutral-lexis-feztron-103afcd5.koyeb.app/api',
+  Base: 'https:/moneyversebackend-production.up.railway.app/api',
 };
 
 export default config;
