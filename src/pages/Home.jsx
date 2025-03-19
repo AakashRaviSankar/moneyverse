@@ -5,7 +5,7 @@ import {BackHandler, Alert} from 'react-native';
 
 import Wallet from '../components/Wallet';
 import GameNavigation from '../components/GameNavigation';
-import {BannerAd, BannerAdSize, TestIds} from 'react-native-google-mobile-ads';
+import {BannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
 
 const Home = () => {
   useEffect(() => {
@@ -24,21 +24,20 @@ const Home = () => {
 
     return () => backHandler.remove(); // Cleanup event listener
   }, []);
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#3C3D37'}}>
       <BannerAd
-        unitId={'ca-app-pub-3087788483910829/2052757772'}
+        unitId={'ca-app-pub-3087788483910829/8931777309'}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
         requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
+          networkExtras: {collapsible: 'bottom'},
         }}
       />
       <Wallet />
       <GameNavigation />
       <BannerAd
-        unitId={
-          __DEV__ ? TestIds.BANNER : 'ca-app-pub-3087788483910829/6365640942'
-        }
+        unitId={'ca-app-pub-3087788483910829/7618695635'}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
         requestOptions={{
           networkExtras: {collapsible: 'bottom'},

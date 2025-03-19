@@ -8,7 +8,7 @@ import {
   Text,
 } from 'react-native-paper';
 import Wallet from '../components/Wallet';
-import AdBanner from '../components/AdBanner';
+
 import axios from 'axios';
 import config from '../config';
 import {getUserData} from '../utils/helper';
@@ -83,10 +83,10 @@ const WithdrawPage = () => {
   return (
     <SafeAreaView style={styles.container}>
       <BannerAd
-        unitId={'ca-app-pub-3087788483910829/2847104312'}
+        unitId={'ca-app-pub-3087788483910829/3033417511'}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
         requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
+          networkExtras: {collapsible: 'bottom'},
         }}
       />
       <Wallet />
@@ -155,10 +155,10 @@ const WithdrawPage = () => {
       </Card>
 
       <BannerAd
-        unitId={'ca-app-pub-3087788483910829/3547905918'}
+        unitId={'ca-app-pub-3087788483910829/1720335840'}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
         requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
+          networkExtras: {collapsible: 'bottom'},
         }}
       />
     </SafeAreaView>

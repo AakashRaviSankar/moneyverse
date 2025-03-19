@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {useRewardedAd} from '../hooks/useRewarded';
-import AdBanner from '../components/AdBanner';
+
 import {BannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
 
 const SettingsScreen = ({navigation}) => {
@@ -34,36 +34,36 @@ const SettingsScreen = ({navigation}) => {
         unitId={'ca-app-pub-3087788483910829/8698196794'}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
         requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
+          networkExtras: {collapsible: 'bottom'},
         }}
       />
 
       <Text style={styles.title}>Settings</Text>
 
-      {/* <SettingButton
+      <SettingButton
         icon="money"
         text="Withdraw Money"
         onPress={() => {
           showAd();
           navigation.navigate('Withdraw');
         }}
-      /> */}
-      <SettingButton
+      />
+      {/* <SettingButton
         icon="money"
         text="Gift Card"
         onPress={() => {
           showAd();
           navigation.navigate('Gift');
         }}
-      />
-      {/* <SettingButton
+      /> */}
+      <SettingButton
         icon="history"
         text="Transaction History"
         onPress={() => {
           showAd();
           navigation.navigate('Transactions');
         }}
-      /> */}
+      />
       <SettingButton
         icon="sign-out"
         text="Logout"
@@ -71,10 +71,10 @@ const SettingsScreen = ({navigation}) => {
         color="red"
       />
       <BannerAd
-        unitId={'ca-app-pub-3087788483910829/2244469086'}
+        unitId={'ca-app-pub-3087788483910829/2350891232'}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
         requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
+          networkExtras: {collapsible: 'bottom'},
         }}
       />
     </SafeAreaView>

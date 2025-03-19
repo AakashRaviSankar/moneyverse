@@ -93,7 +93,9 @@ const App = () => {
   if (isLoading) {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <ActivityIndicator /> <Text>Loading...</Text>
+        <Text>
+          <ActivityIndicator /> Loading...
+        </Text>
       </View>
     );
   }

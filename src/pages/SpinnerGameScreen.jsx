@@ -12,7 +12,6 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import AdBanner from '../components/AdBanner';
 import axios from 'axios';
 import config from '../config';
 import {getUserData} from '../utils/helper';
@@ -33,6 +32,8 @@ const FortuneSpinner = () => {
     setLoader(true);
     try {
       const userData = await getUserData();
+      console.log(userData?.accessToken);
+
       const response = await axios.get(
         `${config.Base}/cooldown/status?userId=${userData?.userId}&task=spin`,
         {headers: {Authorization: `Bearer ${userData?.accessToken}`}},
@@ -90,7 +91,6 @@ const FortuneSpinner = () => {
 
   const spinWheel = async () => {
     setDisabler(true);
-    showAd();
 
     if (numOfSpinsLeft === 0) {
       return Alert.alert('No Spins Left', 'You have reached the limit.');
@@ -103,6 +103,8 @@ const FortuneSpinner = () => {
       easing: Easing.out(Easing.exp),
       useNativeDriver: true,
     }).start(async () => {
+      showAd();
+
       const finalAngle = randomSpin % 360;
       let reward = 0.02; // Default value
 
@@ -137,10 +139,10 @@ const FortuneSpinner = () => {
   return (
     <SafeAreaView style={styles.container}>
       <BannerAd
-        unitId={'ca-app-pub-3087788483910829/4860987587'}
+        unitId={'ca-app-pub-3087788483910829/8245143918'}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
         requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
+          networkExtras: {collapsible: 'bottom'},
         }}
       />
       {loader ? (
@@ -189,10 +191,10 @@ const FortuneSpinner = () => {
       )}
 
       <BannerAd
-        unitId={'ca-app-pub-3087788483910829/7768258508'}
+        unitId={'ca-app-pub-3087788483910829/2024685653'}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
         requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
+          networkExtras: {collapsible: 'bottom'},
         }}
       />
     </SafeAreaView>

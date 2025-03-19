@@ -9,7 +9,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import AdBanner from '../components/AdBanner';
+
 import axios from 'axios';
 import config from '../config';
 import {getUserData} from '../utils/helper';
@@ -58,10 +58,10 @@ const LinkClickingScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <BannerAd
-        unitId={'ca-app-pub-3087788483910829/6596741086'}
+        unitId={'ca-app-pub-3087788483910829/2062878944'}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
         requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
+          networkExtras: {collapsible: 'bottom'},
         }}
       />
       <Text style={styles.title}>Select a Story</Text>
@@ -89,10 +89,10 @@ const LinkClickingScreen = () => {
         />
       )}
       <BannerAd
-        unitId={'ca-app-pub-3087788483910829/1468537485'}
+        unitId={'ca-app-pub-3087788483910829/3416560897'}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
         requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
+          networkExtras: {collapsible: 'bottom'},
         }}
       />
     </SafeAreaView>

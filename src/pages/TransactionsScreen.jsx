@@ -68,10 +68,10 @@ const WithdrawTransactionsPage = () => {
   return (
     <SafeAreaView style={styles.container}>
       <BannerAd
-        unitId={'ca-app-pub-3087788483910829/7576686812'}
+        unitId={'ca-app-pub-3087788483910829/7572557623'}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
         requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
+          networkExtras: {collapsible: 'bottom'},
         }}
       />
       <Text style={styles.header}>Transaction History</Text>
@@ -104,10 +104,10 @@ const WithdrawTransactionsPage = () => {
         <Text style={styles.details}>No Transaction Made Yet</Text>
       )}
       <BannerAd
-        unitId={'ca-app-pub-3087788483910829/1639927874'}
+        unitId={'ca-app-pub-3087788483910829/7642508680'}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
         requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
+          networkExtras: {collapsible: 'bottom'},
         }}
       />
     </SafeAreaView>

@@ -9,7 +9,6 @@ import {
   Alert,
 } from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import AdBanner from '../components/AdBanner';
 
 import {getUserData} from '../utils/helper';
 import axios from 'axios';
@@ -17,6 +16,7 @@ import config from '../config';
 import {fetchBalanceService} from '../services/walletService';
 import {useRewardedAd} from '../hooks/useRewarded';
 import {ActivityIndicator} from 'react-native-paper';
+import NativeAdComponent from '../components/NativeAdComponent';
 
 const stories = [
   {
@@ -128,7 +128,7 @@ const StoryScreen = () => {
   const [timer, setTimer] = useState(30);
   const [buttonEnabled, setButtonEnabled] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // Loading state
-
+  const {showAd} = useRewardedAd();
   const story = stories[index];
 
   useEffect(() => {
@@ -144,6 +144,7 @@ const StoryScreen = () => {
         if (prev === 1) {
           clearInterval(countdown);
           setButtonEnabled(true);
+          showAd();
         }
         return prev - 1;
       });
@@ -153,9 +154,7 @@ const StoryScreen = () => {
       backHandler.remove();
       clearInterval(countdown);
     };
-  }, []);
-
-  const {showAd} = useRewardedAd();
+  }, [showAd]);
 
   const updateTimer = async newSpinsLeft => {
     const userData = await getUserData();
@@ -189,7 +188,6 @@ const StoryScreen = () => {
     setButtonEnabled(false); // Disable button during processing
 
     try {
-      showAd();
       let updatedLinks = [...links];
       updatedLinks[index] = true;
       setLinks(updatedLinks);
@@ -222,7 +220,7 @@ const StoryScreen = () => {
         {story.sections.map((section, i) => (
           <View key={i}>
             <Text style={styles.storyText}>{section}</Text>
-            {i < story.sections.length - 1 && <AdBanner />}
+            {i < story.sections.length - 1 && <NativeAdComponent />}
           </View>
         ))}
         <Pressable

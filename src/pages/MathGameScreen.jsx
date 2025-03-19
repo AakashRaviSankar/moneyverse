@@ -19,7 +19,7 @@ import {GameContext} from '../context/GameContext';
 import {lockGame} from '../utils/gameRules';
 import {useNavigation} from '@react-navigation/native';
 import {useRewardedAd} from '../hooks/useRewarded';
-import AdBanner from '../components/AdBanner';
+
 import axios from 'axios';
 import config from '../config';
 import {getUserData} from '../utils/helper';
@@ -54,6 +54,8 @@ const MathGamePage = () => {
   const fetchCooldowns = useCallback(async () => {
     try {
       const userData = await getUserData();
+      console.log(userData?.accessToken);
+
       const response = await axios.get(
         `${config.Base}/cooldown/status?userId=${userData?.userId}&task=math`,
         {
@@ -151,6 +153,7 @@ const MathGamePage = () => {
         nextQuestion();
       }, 800);
     } else {
+      showAd();
       Alert.alert('Oops!', 'Wrong answer, try again!', [{text: 'OK'}]);
       setTimeout(() => setIsAnswered(false), 800);
     }
@@ -175,10 +178,10 @@ const MathGamePage = () => {
   return (
     <SafeAreaView style={styles.container}>
       <BannerAd
-        unitId={'ca-app-pub-3087788483910829/8963884128'}
+        unitId={'ca-app-pub-3087788483910829/5019348806'}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
         requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
+          networkExtras: {collapsible: 'bottom'},
         }}
       />
 
@@ -223,10 +226,10 @@ const MathGamePage = () => {
       )}
 
       <BannerAd
-        unitId={'ca-app-pub-3087788483910829/8205336227'}
+        unitId={'ca-app-pub-3087788483910829/4977054573'}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
         requestOptions={{
-          requestNonPersonalizedAdsOnly: true, // Ensure compliance with privacy policies
+          networkExtras: {collapsible: 'bottom'},
         }}
       />
     </SafeAreaView>
